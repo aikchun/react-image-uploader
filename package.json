@@ -1,0 +1,26 @@
+{
+  "name": "react-image-uploader",
+  "version": "1.0.0",
+  "description": "A Single page application to upload images",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AikChun/react-image-uploader.git"
+  },
+  "keywords": [
+    "react",
+    "image",
+    "upload",
+    "node",
+    "spa"
+  ],
+  "author": "Sim Aik Chun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AikChun/react-image-uploader/issues"
+  },
+  "homepage": "https://github.com/AikChun/react-image-uploader#readme"
+}
