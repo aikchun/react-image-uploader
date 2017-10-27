@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import {
   Route,
@@ -11,12 +11,15 @@ class ProtectedRoute extends Component {
   constructor (props) {
     super(props);
   }
+
   render() {
     const { component: Component, ...rest } = this.props;
 
+		const { authenticated } = this.props.auth;
+
     return(
       <Route {...rest} render={ (props) => (
-        localStorage.getItem('token') ?
+				authenticated ?
           <Component {...this.props}/>
         :
           <Redirect to={{
@@ -30,4 +33,7 @@ class ProtectedRoute extends Component {
   }
 }
 
-export default (ProtectedRoute);
+const mapStateToProps = ({ auth }) => {
+	return { auth }
+}
+export default connect(mapStateToProps)(ProtectedRoute);

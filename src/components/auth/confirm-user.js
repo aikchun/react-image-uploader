@@ -2,6 +2,8 @@ import React from 'react';
 
 // react-redux
 import { connect } from 'react-redux';
+
+// redux-form
 import { reduxForm, Form, Field } from 'redux-form';
 
 // material-ui components
@@ -10,28 +12,23 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 // form helpers
 import { renderTextField, renderRaisedButton } from '../form-helpers/helpers';
 
-class SigninForm extends React.Component {
+class ConfirmUser extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	onSubmit(values) {
-		console.log("on Submit");
+		console.log(values);
 	}
 
 	render() {
 
-		if (this.props.authenticated) {
-			const { from } = this.props.location.state || { from: { pathname: '/' } };
-			return <Redirect to={ from }/>
-		}
-
 		const { handleSubmit, pristine, submitting } = this.props;
 
-		return (
+		return(
 			<div style={ { margin: "0 auto", width: "90%" } }>
 				<Card>
-					<CardTitle title="Sign in"/>
+					<CardTitle title="Confirm User"/>
 						<CardText>
 							<Form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
 								<div>
@@ -46,11 +43,11 @@ class SigninForm extends React.Component {
 							
 								<div>
 									<Field
-										name="password"
-										label="Password"
+										name="code"
+										label="Confirmation Code"
 										component={ renderTextField }
-										placeholer="Enter password"
-										custom={ { type: "password" } }
+										placeholer="Enter code"
+										custom={ { type: "text" } }
 									/>
 								</div>
 						
@@ -70,15 +67,17 @@ class SigninForm extends React.Component {
 			</div>
 		);
 	}
-}
 
+}
 
 const validate = (values) => {
 	const errors = {};
+
 	const requiredFields = [
     'username',
-    'password'
+    'code'
   ];
+
 	requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required'
@@ -89,8 +88,8 @@ const validate = (values) => {
 }
 
 export default reduxForm({
-	form: "signinForm",
+	form: "confirmUser",
 	validate
 })(
-	connect(null, null)(SigninForm)
+	connect()(ConfirmUser)
 );

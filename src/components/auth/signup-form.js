@@ -2,6 +2,8 @@ import React from 'react';
 
 // react-redux
 import { connect } from 'react-redux';
+
+// redux-form
 import { reduxForm, Form, Field } from 'redux-form';
 
 // material-ui components
@@ -10,30 +12,33 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 // form helpers
 import { renderTextField, renderRaisedButton } from '../form-helpers/helpers';
 
-class SigninForm extends React.Component {
+class SignupForm extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	onSubmit(values) {
-		console.log("on Submit");
+		console.log(values);
 	}
 
 	render() {
-
-		if (this.props.authenticated) {
-			const { from } = this.props.location.state || { from: { pathname: '/' } };
-			return <Redirect to={ from }/>
-		}
-
 		const { handleSubmit, pristine, submitting } = this.props;
-
-		return (
+		return(
 			<div style={ { margin: "0 auto", width: "90%" } }>
 				<Card>
-					<CardTitle title="Sign in"/>
+					<CardTitle title="Sign Up"/>
 						<CardText>
 							<Form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
+								<div>
+									<Field
+										name="email"
+										label="Email"
+										component={ renderTextField }
+										placeholder="Email"
+										custom={ { type: "email" } }
+									/>
+								</div>
+
 								<div>
 									<Field
 										name="username"
@@ -50,6 +55,16 @@ class SigninForm extends React.Component {
 										label="Password"
 										component={ renderTextField }
 										placeholer="Enter password"
+										custom={ { type: "password" } }
+									/>
+								</div>
+
+								<div>
+									<Field
+										name="confirm_password"
+										label="Confirm Password"
+										component={ renderTextField }
+										placeholer="Confirm password"
 										custom={ { type: "password" } }
 									/>
 								</div>
@@ -72,25 +87,39 @@ class SigninForm extends React.Component {
 	}
 }
 
-
 const validate = (values) => {
 	const errors = {};
+
 	const requiredFields = [
+    'email',
     'username',
-    'password'
+    'password',
+    'confirm_password'
   ];
+
 	requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required'
     }
   });
 
+	if (
+    values.email &&
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+  ) {
+    errors.email = 'Invalid email address'
+  }
+
+  if (values.password != values.confirm_password) {
+  	errors.confirm_password = "Your passwords do not match";
+  }
+
   return errors;
 }
 
 export default reduxForm({
-	form: "signinForm",
+	form: "signupForm",
 	validate
 })(
-	connect(null, null)(SigninForm)
+	connect()(SignupForm)
 );
