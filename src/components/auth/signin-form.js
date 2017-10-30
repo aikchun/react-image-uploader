@@ -16,7 +16,7 @@ class SigninForm extends React.Component {
 	}
 
 	onSubmit(values) {
-		console.log("on Submit");
+		console.log(values, "on Submit");
 	}
 
 	render() {

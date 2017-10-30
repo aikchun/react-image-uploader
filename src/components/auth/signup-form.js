@@ -6,8 +6,11 @@ import { connect } from 'react-redux';
 // redux-form
 import { reduxForm, Form, Field } from 'redux-form';
 
+// action creator
+import { signup } from '../../actions/auth-actions'
+
 // material-ui components
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 
 // form helpers
 import { renderTextField, renderRaisedButton } from '../form-helpers/helpers';
@@ -18,7 +21,8 @@ class SignupForm extends React.Component {
 	}
 
 	onSubmit(values) {
-		console.log(values);
+		this.props.signup(values);
+		console.log(values, "user sign in ");
 	}
 
 	render() {
@@ -34,7 +38,6 @@ class SignupForm extends React.Component {
 										name="email"
 										label="Email"
 										component={ renderTextField }
-										placeholder="Email"
 										custom={ { type: "email" } }
 									/>
 								</div>
@@ -44,7 +47,6 @@ class SignupForm extends React.Component {
 										name="username"
 										label="Username"
 										component={ renderTextField }
-										placeholder="Username"
 										custom={ { type: "text" } }
 									/>
 								</div>
@@ -53,6 +55,7 @@ class SignupForm extends React.Component {
 									<Field
 										name="password"
 										label="Password"
+										type="password"
 										component={ renderTextField }
 										placeholer="Enter password"
 										custom={ { type: "password" } }
@@ -63,6 +66,7 @@ class SignupForm extends React.Component {
 									<Field
 										name="confirm_password"
 										label="Confirm Password"
+										type="password"
 										component={ renderTextField }
 										placeholer="Confirm password"
 										custom={ { type: "password" } }
@@ -73,10 +77,10 @@ class SignupForm extends React.Component {
 									<Field
 										name="submit"
 										label="Submit"
-										type="submit"
 										component={renderRaisedButton}
 										disabled={ submitting }
 										primary={ true }
+										type="submit"
 									/>
 								</div>
 						</Form>
@@ -121,5 +125,5 @@ export default reduxForm({
 	form: "signupForm",
 	validate
 })(
-	connect()(SignupForm)
+	connect(null, { signup })(SignupForm)
 );

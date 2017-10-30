@@ -54,7 +54,7 @@ class App extends React.Component {
 				<MuiThemeProvider>
 					<BrowserRouter>
 						<div>
-							<AppBar/>
+							<Route path="/" component={ AppBar } />
 							<Switch>
 								<Route exact path="/" component={ Welcome } />
 								<Route exact path="/signin" component={ SigninForm } />

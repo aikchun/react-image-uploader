@@ -39,13 +39,16 @@ class CustomAppBar extends React.Component {
 	}
 
 	render() {
+
 		const signInLink = this.renderSigninLink();
+
 		return (
 			<div>
 				<AppBar
-					title="File Upload"
+					title={<span style={ { cursor: 'pointer' } }>File Upload</span>}
 				  iconElementRight={ signInLink }
 					onLeftIconButtonTouchTap={ this.toggleDrawer.bind(this) }
+					onTitleTouchTap={ () => { this.props.history.push('/') } }
 				/>
 
 				<Drawer

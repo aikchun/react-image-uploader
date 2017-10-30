@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 // redux-form
 import { reduxForm, Form, Field } from 'redux-form';
 
+// action creators
+import { confirmUser } from '../../actions/auth-actions';
+
 // material-ui components
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
@@ -18,7 +21,7 @@ class ConfirmUser extends React.Component {
 	}
 
 	onSubmit(values) {
-		console.log(values);
+		this.props.confirmUser(values);
 	}
 
 	render() {
@@ -36,7 +39,6 @@ class ConfirmUser extends React.Component {
 										name="username"
 										label="Username"
 										component={ renderTextField }
-										placeholder="Username"
 										custom={ { type: "text" } }
 									/>
 								</div>
@@ -91,5 +93,5 @@ export default reduxForm({
 	form: "confirmUser",
 	validate
 })(
-	connect()(ConfirmUser)
+	connect(null, { confirmUser })(ConfirmUser)
 );
