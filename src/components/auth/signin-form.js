@@ -1,5 +1,7 @@
 import React from 'react';
 
+// action creator
+import { signin } from '../../actions/auth-actions';
 // react-redux
 import { connect } from 'react-redux';
 import { reduxForm, Form, Field } from 'redux-form';
@@ -16,6 +18,7 @@ class SigninForm extends React.Component {
 	}
 
 	onSubmit(values) {
+		this.props.signin(values);
 		console.log(values, "on Submit");
 	}
 
@@ -39,7 +42,6 @@ class SigninForm extends React.Component {
 										name="username"
 										label="Username"
 										component={ renderTextField }
-										placeholder="Username"
 										custom={ { type: "text" } }
 									/>
 								</div>
@@ -50,7 +52,7 @@ class SigninForm extends React.Component {
 										label="Password"
 										component={ renderTextField }
 										placeholer="Enter password"
-										custom={ { type: "password" } }
+										type="password"
 									/>
 								</div>
 						
@@ -92,5 +94,5 @@ export default reduxForm({
 	form: "signinForm",
 	validate
 })(
-	connect(null, null)(SigninForm)
+	connect(null, { signin })(SigninForm)
 );

@@ -1,5 +1,8 @@
 import React from "react";
 
+// action creator
+import { getAuthenticatedUser } from '../actions/auth-actions';
+
 // react redux
 import { connect } from 'react-redux';
 
@@ -21,20 +24,27 @@ class CustomAppBar extends React.Component {
 		super(props);
 		this.state = { open: false }
 	}
+	
+	componentDidMount() {
+		this.props.getAuthenticatedUser();
+	}
 
 	toggleDrawer() {
 		this.setState({ ...this.state, open: !this.state.open })
 	}
 
 	renderSigninLink() {
-		const { authenticated } = this.props.auth;
-		if (authenticated) {
+		if (this.props.authenticated) {
 			return (
-				<Link to="/signout"><FlatButton label="Sign Out" labelStyle={{ color: "white"}}/></Link>
+				<Link to="/signout">
+					<FlatButton label="Sign Out" labelStyle={ { color: "white" } }/>
+				</Link>
 			);
 		}
 		return (
-			<Link to="/signin"><FlatButton label="Sign In" labelStyle={{ color: "white"}}/></Link>
+			<Link to="/signin">
+				<FlatButton label="Sign In" labelStyle={ { color: "white" } }/>
+			</Link>
 		);
 	}
 
@@ -49,6 +59,7 @@ class CustomAppBar extends React.Component {
 				  iconElementRight={ signInLink }
 					onLeftIconButtonTouchTap={ this.toggleDrawer.bind(this) }
 					onTitleTouchTap={ () => { this.props.history.push('/') } }
+					showMenuIconButton={ this.props.authenticated }
 				/>
 
 				<Drawer
@@ -77,8 +88,8 @@ class CustomAppBar extends React.Component {
 	}
 }
 
-const mapStateToProps = ({ auth }) => {
-	return { auth }
+const mapStateToProps = ({ auth: { authenticated } }) => {
+	return { authenticated };
 }
 
-export default connect(mapStateToProps)(CustomAppBar);
+export default connect(mapStateToProps, { getAuthenticatedUser })(CustomAppBar);
