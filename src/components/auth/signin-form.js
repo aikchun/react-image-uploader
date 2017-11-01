@@ -2,9 +2,13 @@ import React from 'react';
 
 // action creator
 import { signin } from '../../actions/auth-actions';
+
 // react-redux
 import { connect } from 'react-redux';
 import { reduxForm, Form, Field } from 'redux-form';
+
+// react-router-dom
+import { Redirect } from 'react-router-dom';
 
 // material-ui components
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -19,7 +23,6 @@ class SigninForm extends React.Component {
 
 	onSubmit(values) {
 		this.props.signin(values);
-		console.log(values, "on Submit");
 	}
 
 	render() {
@@ -90,9 +93,13 @@ const validate = (values) => {
   return errors;
 }
 
+const mapStateToProps = ({ auth: { authenticated } }) => {
+	return { authenticated }
+}
+
 export default reduxForm({
 	form: "signinForm",
 	validate
 })(
-	connect(null, { signin })(SigninForm)
+	connect(mapStateToProps, { signin })(SigninForm)
 );
