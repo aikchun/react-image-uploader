@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
+import AppBarOptions from './app_bar_options';
 import MenuItem from 'material-ui/MenuItem';
 
 // react router
@@ -56,10 +57,10 @@ class CustomAppBar extends React.Component {
 			<div>
 				<AppBar
 					title={<span style={ { cursor: 'pointer' } }>File Upload</span>}
-				  iconElementRight={ signInLink }
 					onLeftIconButtonTouchTap={ this.toggleDrawer.bind(this) }
 					onTitleTouchTap={ () => { this.props.history.push('/') } }
 					showMenuIconButton={ this.props.authenticated }
+					iconElementRight={<AppBarOptions/>}
 				/>
 
 				<Drawer
@@ -67,21 +68,16 @@ class CustomAppBar extends React.Component {
 					docked={false}
 					onRequestChange={ this.toggleDrawer.bind(this) }
 				>
-          <Link
-						to="/signup"
-						style={ { textDecoration: 'none' } }
-					>
 						<MenuItem
+							primaryText="Home" 
+							containerElement={<Link to="/" />}
 							onClick={ this.toggleDrawer.bind(this) }
-						>Sign Up
-						</MenuItem>
-					</Link>
-					<Link
-						to="/confirm-user"
-						style={ { textDecoration: 'none' } }
-					>
-						<MenuItem onClick={ this.toggleDrawer.bind(this) }>Confirm User</MenuItem>
-					</Link>
+						/>
+						<MenuItem
+							primaryText="Create Thumbnail" 
+							containerElement={<Link to="/create-thumbnail" />}
+							onClick={ this.toggleDrawer.bind(this) }
+						/>
         </Drawer>
 			</div>
 		);

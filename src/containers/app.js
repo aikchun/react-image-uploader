@@ -62,7 +62,7 @@ class App extends React.Component {
 								<Route exact path="/signup" component={ SignupForm } />
 								<Route exact path="/signout" component={ SignoutForm } />
 								<Route exact path="/confirm-user" component={ ConfirmUser } />
-								<ProtectedRoute exact path="/upload" component={ SimpleForm }/>
+								<ProtectedRoute exact path="/create-thumbnail" component={ SimpleForm }/>
 							</Switch>
 						</div>
 					</BrowserRouter>
