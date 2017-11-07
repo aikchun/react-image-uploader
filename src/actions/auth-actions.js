@@ -38,6 +38,7 @@ export const signin = ({ username, password }) => {
 		cognitoUser.authenticateUser(authenticationDetails, {
 			onSuccess: function (result) {
 				const token = result.getAccessToken().getJwtToken();
+				console.log(token, "token");
 
 				dispatch({ type: AUTH_USER, payload: { } })
 
@@ -138,7 +139,7 @@ export const getAuthenticatedUser = () => {
 								console.log('user is not authenticated');
 								return;
 						}
-						localStorage.setItem('token', session.accessToken);
+						localStorage.setItem('token', session.getIdToken().getJwtToken());
 						dispatch({ type: AUTH_USER, payload: {} });
 						console.log('user is authenticated');
 						// NOTE: getSession must be called to authenticate user before calling getUserAttributes

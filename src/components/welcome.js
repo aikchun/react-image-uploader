@@ -10,11 +10,11 @@ export default class Welcome extends Component {
 		return(
 			<div style={{ width: "90%", margin: "0 auto"}}>
 				<Card>
-					<CardTitle title="Welcome to Yet Another Picture Resizing App"/>
+					<CardTitle title="Welcome to Yet Another Image Resizing App"/>
 					<CardText>
 						<div style={ spacingBetweenLines }>
 							This is a single Page application.
-							Powered by React, material-ui and AWS Lambda.
+							Powered by React, Material-UI, AWS Lambda, S3 and API Gateway.
 						</div>
 						<div style={ spacingBetweenLines }>
 							Links:

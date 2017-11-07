@@ -56,7 +56,13 @@ class CustomAppBar extends React.Component {
 		return (
 			<div>
 				<AppBar
-					title={<span style={ { cursor: 'pointer' } }>File Upload</span>}
+					title={
+						<span style={ { cursor: 'pointer' } }
+							onClick={ () => this.props.history.push('/') }
+						>
+							YAIRA
+						</span>
+					}
 					onLeftIconButtonTouchTap={ this.toggleDrawer.bind(this) }
 					onTitleTouchTap={ () => { this.props.history.push('/') } }
 					showMenuIconButton={ this.props.authenticated }
