@@ -23,8 +23,13 @@ import {
 
 // custom components
 import AppBar from "../components/app_bar";
+import Welcome from "../components/welcome";
 import SimpleForm from '../components/simple-form';
-import SigninForm from '../components/auth/signin-form'
+import SigninForm from '../components/auth/signin-form';
+import SignupForm from '../components/auth/signup-form';
+import SignoutForm from '../components/auth/signout-form';
+import ConfirmUser from '../components/auth/confirm-user';
+import ProtectedRoute from '../components/routes/protected-route';
 
 
 
@@ -50,11 +55,14 @@ class App extends React.Component {
 				<MuiThemeProvider>
 					<BrowserRouter>
 						<div>
-							<AppBar/>
+							<Route path="/" component={ AppBar } />
 							<Switch>
 								<Route exact path="/" component={ Welcome } />
 								<Route exact path="/signin" component={ SigninForm } />
-								<Route exact path="/upload" component={ SimpleForm }/>
+								<Route exact path="/signup" component={ SignupForm } />
+								<Route exact path="/signout" component={ SignoutForm } />
+								<Route exact path="/confirm-user" component={ ConfirmUser } />
+								<ProtectedRoute exact path="/create-thumbnail" component={ SimpleForm }/>
 							</Switch>
 						</div>
 					</BrowserRouter>
