@@ -4,7 +4,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton';
 
-export const renderTextField = ({ input, label, meta: {touched, error}, custom }) => {
+export const renderTextField = ({ input, label, meta: {touched, error}, ...custom }) => {
 	return(
 		<TextField
 			hintText={label}
@@ -16,7 +16,7 @@ export const renderTextField = ({ input, label, meta: {touched, error}, custom }
 	);
 }
 
-export const renderRaisedButton = ({ input, label, primary, meta: {touched, error}, custom }) => {
+export const renderRaisedButton = ({ input, label, primary, meta: {touched, error}, ...custom }) => {
 	return(
 		<RaisedButton
 			label={ label }

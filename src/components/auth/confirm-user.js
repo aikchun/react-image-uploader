@@ -1,14 +1,13 @@
 import React from 'react';
 
-// action creator
-import { signin } from '../../actions/auth-actions';
-
 // react-redux
 import { connect } from 'react-redux';
+
+// redux-form
 import { reduxForm, Form, Field } from 'redux-form';
 
-// react-router-dom
-import { Redirect } from 'react-router-dom';
+// action creators
+import { confirmUser } from '../../actions/auth-actions';
 
 // material-ui components
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -16,28 +15,23 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 // form helpers
 import { renderTextField, renderRaisedButton } from '../form-helpers/helpers';
 
-class SigninForm extends React.Component {
+class ConfirmUser extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
 	onSubmit(values) {
-		this.props.signin(values);
+		this.props.confirmUser(values);
 	}
 
 	render() {
 
-		if (this.props.authenticated) {
-			const { from } = this.props.location.state || { from: { pathname: '/' } };
-			return <Redirect to={ from }/>
-		}
-
 		const { handleSubmit, pristine, submitting } = this.props;
 
-		return (
+		return(
 			<div style={ { margin: "0 auto", width: "90%" } }>
 				<Card>
-					<CardTitle title="Sign in"/>
+					<CardTitle title="Confirm User"/>
 						<CardText>
 							<Form onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
 								<div>
@@ -51,11 +45,11 @@ class SigninForm extends React.Component {
 							
 								<div>
 									<Field
-										name="password"
-										label="Password"
+										name="code"
+										label="Confirmation Code"
 										component={ renderTextField }
-										placeholer="Enter password"
-										type="password"
+										placeholer="Enter code"
+										custom={ { type: "text" } }
 									/>
 								</div>
 						
@@ -75,15 +69,17 @@ class SigninForm extends React.Component {
 			</div>
 		);
 	}
-}
 
+}
 
 const validate = (values) => {
 	const errors = {};
+
 	const requiredFields = [
     'username',
-    'password'
+    'code'
   ];
+
 	requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required'
@@ -93,13 +89,9 @@ const validate = (values) => {
   return errors;
 }
 
-const mapStateToProps = ({ auth: { authenticated } }) => {
-	return { authenticated }
-}
-
 export default reduxForm({
-	form: "signinForm",
+	form: "confirmUser",
 	validate
 })(
-	connect(mapStateToProps, { signin })(SigninForm)
+	connect(null, { confirmUser })(ConfirmUser)
 );
