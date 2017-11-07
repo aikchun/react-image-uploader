@@ -8,13 +8,15 @@ import { headers } from '../utils';
 
 const ROOT_URL = process.env.ROOT_URL;
 
-export const createThumbnail = (values) => {
+export const createThumbnail = (data) => {
 	const header = headers();
 
-	header['headers']['Content-Type'] = "multipart/form-data";
+	header['headers']['content-type'] = "multipart/form-data";
 	return (dispatch) => {
-		console.log(values);
-		axios.post(`${ROOT_URL}/create-thumbnail`, values, header).then((response) => {
+		console.log(data);
+		const formData = new FormData();
+		formData.append('files', data.file[0]);
+		axios.post(`${ROOT_URL}/create-thumbnail`, formData, header).then((response) => {
 			console.log(response);
 		}).catch((response) => {
 			console.log(response);

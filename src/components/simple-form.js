@@ -16,35 +16,21 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 // helpers
 import { renderTextField } from './form-helpers/helpers';
+import FileInput from './form-fields/file-input';
 
 class SimpleForm extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { filename: this.defaultFileInputLabel() }
 	}
 
 	handleSubmit(values) {
 		//this.props.showThumbnail();
-		console.log("values: ", values)
 		this.props.createThumbnail(values);
 		//this.props.test();
 
 	}
 
-	handleFileUploadChange(e) {
-		if (e.target.files[0]) {
-			this.setState({ filename: e.target.files[0]['name'] });
-		} else {
-			this.setState({ filename: this.defaultFileInputLabel() });
-		}
-	}
-
-	defaultFileInputLabel() {
-		return "Upload a file";
-	}
-
 	render() {
-		const filename = this.state.filename;
 		return(
 			<div>
 				<Card style={{ height: "300px", width: "95%", margin: "0 auto" }}>
@@ -54,35 +40,15 @@ class SimpleForm extends React.Component {
 					/>
 					<CardText>
 						<Form onSubmit={ this.props.handleSubmit(this.handleSubmit.bind(this)) }>
-							<div >
-								<Field
-									name="name"
-									floatingLabelText="Name"
-									component={ renderTextField }
-									label="Name"
-									fullWidth
-								/>
-							</div>
 
 							<div className="form-field">
 								<Field
-									name="file"
-									label="File"
 									type="file"
-									multiple="true"
-									component={ ({ input, label, meta: { touched, error }, ...custom }) => {
-										delete input.value;
-										return (
-											<div>
-												<label htmlFor={ input.name }>{ custom.label } </label>
-												<input
-													{ ...input }
-													{ ...custom }
-												/>
-											</div>
-										);
-
-									} }
+									name="file"
+									component={ (field) => {
+										delete field.input.value;
+										return <input type="file" id="file" {...field.input} />;
+									}}
 								/>
 							</div>
 
