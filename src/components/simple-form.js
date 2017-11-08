@@ -24,9 +24,7 @@ class SimpleForm extends React.Component {
 	}
 
 	handleSubmit(values) {
-		//this.props.showThumbnail();
 		this.props.createThumbnail(values);
-		//this.props.test();
 
 	}
 
