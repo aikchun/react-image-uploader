@@ -10,6 +10,9 @@ import { connect } from 'react-redux';
 // redux-form
 import { reduxForm, Form, Field } from 'redux-form';
 
+// react-dropzone
+import Dropzone from 'react-dropzone';
+
 // material-ui
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -17,15 +20,29 @@ import RaisedButton from 'material-ui/RaisedButton';
 // helpers
 import { renderTextField } from './form-helpers/helpers';
 import FileInput from './form-fields/file-input';
+import _ from 'lodash';
 
 class SimpleForm extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = { dropzoneText: "Drop your files here" };
 	}
 
 	handleSubmit(values) {
-		this.props.createThumbnail(values);
 
+		this.props.createThumbnail(this.state.fileList);
+	}
+
+	handleFilesDropped(acceptedFiles, rejectedFiles, event) {
+		const filenames = _.map(acceptedFiles, (file) => {
+			return (<p style={ { marginLeft: '5px' } } key={ `files_${file.preview}` }> { file.name } </p>);
+		});
+
+		this.setState({
+			...this.state,
+			dropzoneText: filenames,
+			fileList: event.target.files
+		});
 	}
 
 	render() {
@@ -38,17 +55,11 @@ class SimpleForm extends React.Component {
 					/>
 					<CardText>
 						<Form onSubmit={ this.props.handleSubmit(this.handleSubmit.bind(this)) }>
-
-							<div className="form-field">
-								<Field
-									type="file"
-									name="file"
-									component={ (field) => {
-										delete field.input.value;
-										return <input type="file" id="file" {...field.input} />;
-									}}
-								/>
-							</div>
+							<Dropzone
+								onDrop={ this.handleFilesDropped.bind(this) }
+							>
+								{ this.state.dropzoneText }
+							</Dropzone>
 
 							<div className="form-field">
 								<RaisedButton
