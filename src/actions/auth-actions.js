@@ -38,7 +38,6 @@ export const signin = ({ username, password }) => {
 		cognitoUser.authenticateUser(authenticationDetails, {
 			onSuccess: function (result) {
 				const token = result.getAccessToken().getJwtToken();
-				console.log(token, "token");
 
 				dispatch({ type: AUTH_USER, payload: { } })
 
@@ -96,7 +95,6 @@ export const signup = (data) => {
 				return;
 			}
 			cognitoUser = result.user;
-			console.log('user name is ' + cognitoUser.getUsername());
 		});
 	}
 }
@@ -120,7 +118,6 @@ export const confirmUser = (data) => {
             alert(err);
             return;
         }
-        console.log('call result: ' + result);
     });
 	}
 }
@@ -136,12 +133,10 @@ export const getAuthenticatedUser = () => {
 		if (cognitoUser != null) {
 				cognitoUser.getSession(function(err, session) {
 						if (err) {
-								console.log('user is not authenticated');
 								return;
 						}
 						localStorage.setItem('token', session.getIdToken().getJwtToken());
 						dispatch({ type: AUTH_USER, payload: {} });
-						console.log('user is authenticated');
 						// NOTE: getSession must be called to authenticate user before calling getUserAttributes
 						cognitoUser.getUserAttributes(function(err, attributes) {
 								if (err) {

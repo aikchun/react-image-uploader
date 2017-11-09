@@ -19,7 +19,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 // helpers
 import { renderTextField } from './form-helpers/helpers';
-import FileInput from './form-fields/file-input';
 import _ from 'lodash';
 
 class SimpleForm extends React.Component {
@@ -57,6 +56,15 @@ class SimpleForm extends React.Component {
 						<Form onSubmit={ this.props.handleSubmit(this.handleSubmit.bind(this)) }>
 							<Dropzone
 								onDrop={ this.handleFilesDropped.bind(this) }
+								style={
+									{
+										height: "50px",
+										width: "30%",
+										textAlign: "center",
+										borderStyle: 'dotted',
+										borderWidth: '2px'
+									}
+								}
 							>
 								{ this.state.dropzoneText }
 							</Dropzone>
