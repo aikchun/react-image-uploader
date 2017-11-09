@@ -22,7 +22,6 @@ class SignupForm extends React.Component {
 
 	onSubmit(values) {
 		this.props.signup(values);
-		console.log(values, "user sign in ");
 	}
 
 	render() {
