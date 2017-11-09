@@ -22,9 +22,7 @@ export const createThumbnail = (data) => {
 		});
 
 		axios.post(`${ROOT_URL}/resize-upload`, formData, header).then((response) => {
-			console.log(response);
 		}).catch((response) => {
-			console.log(response);
 		});
 	}
 }
