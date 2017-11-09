@@ -59,3 +59,5 @@ typings/
 
 # compile js file
 bundle.js
+
+dist

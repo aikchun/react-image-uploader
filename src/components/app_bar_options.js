@@ -35,11 +35,6 @@ class AppBarOptions extends React.Component {
 		return (
 			<div>
 				<MenuItem
-					primaryText="Sign up" 
-					containerElement={<Link to="/signup" />}
-					onClick={ this.toggleIconMenu.bind(this) }
-				/>
-				<MenuItem
 					primaryText="Sign in" 
 					containerElement={<Link to="/signin" />}
 					onClick={ this.toggleIconMenu.bind(this) }

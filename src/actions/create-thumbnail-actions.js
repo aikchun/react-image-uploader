@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import _ from 'lodash';
+
 import {
 	CREATE_THUMBNAIL
 } from './types';
@@ -13,9 +15,12 @@ export const createThumbnail = (data) => {
 
 	header['headers']['content-type'] = "multipart/form-data";
 	return (dispatch) => {
-		console.log(data);
 		const formData = new FormData();
-		formData.append('files', data.file[0]);
+		
+		_.forEach(data, (file) => {
+			formData.append('files[]', file);
+		});
+
 		axios.post(`${ROOT_URL}/resize-upload`, formData, header).then((response) => {
 			console.log(response);
 		}).catch((response) => {
